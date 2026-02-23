@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ACADWRITE — Academic Research & Review Writing</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #0d1b2a;
+    --teal: #1a7f6e;
+    --gold: #c9a84c;
+    --cream: #f5f0e8;
+    --white: #ffffff;
+    --gray: #6b7280;
+    --light: #f9f7f3;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--navy);
+    color: var(--white);
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 20px 60px;
+    background: rgba(13,27,42,0.92);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(201,168,76,0.2);
+  }
+  .logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: var(--gold);
+  }
+  .logo span { color: var(--white); }
+  nav ul { list-style: none; display: flex; gap: 36px; }
+  nav ul a {
+    text-decoration: none; color: rgba(255,255,255,0.75);
+    font-size: 0.9rem; font-weight: 500; letter-spacing: 0.5px;
+    transition: color 0.3s;
+  }
+  nav ul a:hover { color: var(--gold); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex; align-items: center;
+    padding: 120px 60px 80px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; top: 0; right: 0;
+    width: 50%; height: 100%;
+    background: radial-gradient(ellipse at 80% 50%, rgba(26,127,110,0.18) 0%, transparent 70%);
+  }
+  .hero::after {
+    content: '';
+    position: absolute; bottom: -100px; left: -100px;
+    width: 400px; height: 400px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(201,168,76,0.07) 0%, transparent 70%);
+  }
+  .hero-content { max-width: 680px; position: relative; z-index: 2; }
+  .hero-badge {
+    display: inline-block;
+    background: rgba(201,168,76,0.15);
+    border: 1px solid rgba(201,168,76,0.4);
+    color: var(--gold);
+    font-size: 0.78rem; letter-spacing: 2px; text-transform: uppercase;
+    padding: 6px 16px; border-radius: 20px;
+    margin-bottom: 28px;
+    animation: fadeUp 0.8s ease both;
+  }
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.8rem, 5vw, 4.2rem);
+    line-height: 1.15;
+    font-weight: 700;
+    margin-bottom: 24px;
+    animation: fadeUp 0.8s ease 0.15s both;
+  }
+  .hero h1 em { color: var(--gold); font-style: italic; }
+  .hero p {
+    font-size: 1.1rem; line-height: 1.8;
+    color: rgba(255,255,255,0.7);
+    margin-bottom: 40px;
+    animation: fadeUp 0.8s ease 0.3s both;
+    max-width: 520px;
+  }
+  .hero-btns { display: flex; gap: 16px; flex-wrap: wrap; animation: fadeUp 0.8s ease 0.45s both; }
+  .btn-primary {
+    background: var(--gold); color: var(--navy);
+    padding: 14px 32px; border-radius: 4px;
+    font-weight: 600; font-size: 0.95rem;
+    text-decoration: none; letter-spacing: 0.3px;
+    transition: transform 0.2s, box-shadow 0.2s;
+    display: inline-block;
+  }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(201,168,76,0.35); }
+  .btn-outline {
+    border: 1.5px solid rgba(255,255,255,0.3); color: var(--white);
+    padding: 14px 32px; border-radius: 4px;
+    font-weight: 500; font-size: 0.95rem;
+    text-decoration: none;
+    transition: border-color 0.2s, color 0.2s;
+    display: inline-block;
+  }
+  .btn-outline:hover { border-color: var(--gold); color: var(--gold); }
+
+  /* DECORATIVE LINE */
+  .divider-line {
+    width: 60px; height: 3px;
+    background: var(--gold);
+    margin: 0 auto 16px;
+  }
+
+  /* SERVICES */
+  .services {
+    background: var(--light); color: var(--navy);
+    padding: 100px 60px;
+  }
+  .section-label {
+    font-size: 0.75rem; letter-spacing: 3px; text-transform: uppercase;
+    color: var(--teal); font-weight: 500;
+    text-align: center; margin-bottom: 12px;
+  }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 3.5vw, 2.8rem);
+    text-align: center; font-weight: 700;
+    margin-bottom: 16px; line-height: 1.2;
+  }
+  .section-sub {
+    text-align: center; color: var(--gray);
+    font-size: 1rem; line-height: 1.7; max-width: 520px;
+    margin: 0 auto 64px;
+  }
+  .services-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 28px; max-width: 1100px; margin: 0 auto;
+  }
+  .service-card {
+    background: var(--white);
+    border-radius: 8px;
+    padding: 40px 32px;
+    border: 1px solid rgba(0,0,0,0.07);
+    transition: transform 0.3s, box-shadow 0.3s;
+    position: relative; overflow: hidden;
+  }
+  .service-card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+    background: var(--teal);
+    transform: scaleX(0); transform-origin: left;
+    transition: transform 0.3s;
+  }
+  .service-card:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(0,0,0,0.1); }
+  .service-card:hover::before { transform: scaleX(1); }
+  .service-icon {
+    width: 52px; height: 52px; border-radius: 12px;
+    background: rgba(26,127,110,0.1);
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 24px; font-size: 1.5rem;
+  }
+  .service-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem; font-weight: 700;
+    margin-bottom: 12px; color: var(--navy);
+  }
+  .service-card p { color: var(--gray); font-size: 0.92rem; line-height: 1.7; }
+
+  /* WHY US */
+  .why {
+    background: var(--navy);
+    padding: 100px 60px;
+  }
+  .why .section-title { color: var(--white); }
+  .why .section-label { color: var(--gold); }
+  .why .section-sub { color: rgba(255,255,255,0.6); }
+  .why-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 40px; max-width: 1000px; margin: 0 auto; text-align: center;
+  }
+  .why-item .num {
+    font-family: 'Playfair Display', serif;
+    font-size: 3rem; color: var(--gold); font-weight: 700;
+    line-height: 1; margin-bottom: 8px;
+  }
+  .why-item h4 { font-size: 1rem; font-weight: 500; margin-bottom: 8px; }
+  .why-item p { font-size: 0.88rem; color: rgba(255,255,255,0.55); line-height: 1.6; }
+
+  /* ORDER FORM */
+  .order {
+    background: var(--cream); color: var(--navy);
+    padding: 100px 60px;
+  }
+  .order-container {
+    max-width: 780px; margin: 0 auto;
+  }
+  .form-wrapper {
+    background: var(--white);
+    border-radius: 12px;
+    padding: 56px 52px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+    border: 1px solid rgba(0,0,0,0.06);
+  }
+  .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .form-group { display: flex; flex-direction: column; }
+  .form-group.full { grid-column: 1 / -1; }
+  label {
+    font-size: 0.82rem; font-weight: 600; letter-spacing: 0.5px;
+    text-transform: uppercase; color: var(--navy);
+    margin-bottom: 8px;
+  }
+  input, select, textarea {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.95rem;
+    border: 1.5px solid #e5e7eb;
+    border-radius: 6px;
+    padding: 12px 16px;
+    background: var(--light);
+    color: var(--navy);
+    transition: border-color 0.2s, box-shadow 0.2s;
+    outline: none;
+    width: 100%;
+  }
+  input:focus, select:focus, textarea:focus {
+    border-color: var(--teal);
+    box-shadow: 0 0 0 3px rgba(26,127,110,0.12);
+  }
+  textarea { resize: vertical; min-height: 120px; }
+  .submit-btn {
+    width: 100%; background: var(--teal);
+    color: var(--white); border: none;
+    padding: 16px; border-radius: 6px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 1rem; font-weight: 600;
+    cursor: pointer; letter-spacing: 0.5px;
+    margin-top: 8px;
+    transition: background 0.2s, transform 0.2s;
+  }
+  .submit-btn:hover { background: #155f52; transform: translateY(-1px); }
+  .form-note {
+    text-align: center; font-size: 0.8rem;
+    color: var(--gray); margin-top: 16px;
+  }
+
+  /* SUCCESS MSG */
+  #success-msg {
+    display: none;
+    background: rgba(26,127,110,0.1);
+    border: 1.5px solid var(--teal);
+    border-radius: 8px;
+    padding: 20px; text-align: center;
+    color: var(--teal); font-weight: 500;
+    margin-top: 16px;
+  }
+
+  /* FOOTER */
+  footer {
+    background: #070f18;
+    padding: 48px 60px;
+    text-align: center;
+    border-top: 1px solid rgba(201,168,76,0.15);
+  }
+  .footer-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem; color: var(--gold); font-weight: 700;
+    letter-spacing: 2px; margin-bottom: 12px;
+  }
+  footer p { color: rgba(255,255,255,0.4); font-size: 0.85rem; }
+  footer a { color: var(--gold); text-decoration: none; }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    nav { padding: 16px 24px; }
+    nav ul { display: none; }
+    .hero { padding: 100px 24px 60px; }
+    .services, .why, .order { padding: 70px 24px; }
+    footer { padding: 40px 24px; }
+    .form-wrapper { padding: 36px 24px; }
+    .form-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="logo">ACAD<span>WRITE</span></div>
+  <ul>
+    <li><a href="#why">Why Us</a></li>
+    <li><a href="#order">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-badge">Life Sciences & Pharmacy</div>
+    <h1>Expert Academic<br>Writing for <em>Science</em><br>Students</h1>
+    <p>Professional research papers and review articles tailored to your academic needs. Trusted by pharmacy and life sciences students worldwide.</p>
+
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="services" id="services">
+  <div class="section-label">What We Offer</div>
+  <h2 class="section-title">Specialized Writing Services</h2>
+  <p class="section-sub">From pharmacology to molecular biology, we deliver well-researched, scientifically accurate academic papers.</p>
+  <div class="services-grid">
+    <div class="service-card">
+      <div class="service-icon">🔬</div>
+      <h3>Research Papers</h3>
+      <p>Original, structured research papers with proper methodology, results analysis, and scientific citation standards.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">📋</div>
+      <h3>Review Articles</h3>
+      <p>Comprehensive literature reviews synthesizing current findings across pharmacology, biochemistry, and life sciences.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">💊</div>
+      <h3>Pharmacy Topics</h3>
+      <p>Drug mechanisms, clinical pharmacology, pharmaceutical sciences — we cover the full pharmacy curriculum spectrum.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">🧬</div>
+      <h3>Life Sciences</h3>
+      <p>Microbiology, genetics, cell biology, physiology — scientifically rigorous writing for any life science discipline.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">✏️</div>
+      <h3>Editing & Proofreading</h3>
+      <p>Polish your existing drafts with expert scientific editing, formatting, and APA/AMA/Vancouver citation correction.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">📊</div>
+      <h3>Custom Requests</h3>
+      <p>Have something specific in mind? We accommodate custom academic writing needs on a case-by-case basis.</p>
+    </div>
+  </div>
+</section>
+
+<!-- WHY US -->
+<section class="why" id="why">
+  <div class="section-label">Why ACADWRITE</div>
+  <h2 class="section-title">Built for Science Students</h2>
+  <p class="section-sub">We understand the rigorous demands of pharmacy and life sciences academia.</p>
+  <div class="why-grid">
+    <div class="why-item">
+      <div class="num">100%</div>
+      <h4>Original Content</h4>
+      <p>Every paper written from scratch, no recycled content</p>
+    </div>
+    <div class="why-item">
+      <div class="num">24h</div>
+      <h4>Fast Turnaround</h4>
+      <p>Urgent deadlines handled professionally</p>
+    </div>
+    <div class="why-item">
+      <div class="num">✓</div>
+      <h4>Science-Focused</h4>
+      <p>Specialized in pharmacy & life sciences only</p>
+    </div>
+    <div class="why-item">
+      <div class="num">∞</div>
+      <h4>Free Revisions</h4>
+      <p>We refine until you are fully satisfied</p>
+    </div>
+  </div>
+</section>
+
+<!-- ORDER FORM -->
+<section class="order" id="order">
+  <div class="order-container">
+    <div class="section-label" style="text-align:center;">Reach Out</div>
+    <h2 class="section-title">Contact Us</h2>
+    <p class="section-sub">Fill in the details below and we'll get back to you with a quote and timeline.</p>
+
+    <div class="form-wrapper">
+      <form id="orderForm" action="https://formspree.io/f/xpqjoozl" method="POST">
+        <div class="form-grid">
+          <div class="form-group">
+            <label>Full Name</label>
+            <input type="text" placeholder="Your name" required>
+          </div>
+          <div class="form-group">
+            <label>Email Address</label>
+            <input type="email" placeholder="you@email.com" required>
+          </div>
+          <div class="form-group">
+            <label>Service Type</label>
+            <select required>
+              <option value="" disabled selected>Select a service</option>
+              <option>Research Paper</option>
+              <option>Review Article</option>
+              <option>Pharmacy Topic</option>
+              <option>Life Sciences Topic</option>
+              <option>Editing & Proofreading</option>
+              <option>Custom Request</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Deadline</label>
+            <input type="date" required>
+          </div>
+          <div class="form-group full">
+            <label>Your Topic</label>
+            <input type="text" placeholder="e.g. Drug resistance mechanisms in Gram-negative bacteria" required>
+          </div>
+          <div class="form-group full">
+            <label>What You Need (Details)</label>
+            <textarea placeholder="Describe exactly what you need — number of words/pages, specific sections, citation style, any guidelines from your professor, etc." required></textarea>
+          </div>
+          <div class="form-group full">
+            <label>Additional Notes (Optional)</label>
+            <textarea placeholder="Anything else we should know?" style="min-height:80px;"></textarea>
+          </div>
+        </div>
+        <button type="submit" class="submit-btn">Send My Request →</button>
+        <p class="form-note">🔒 Your information is kept strictly confidential.</p>
+        <div id="success-msg">✅ Thank you! Your request has been received. We'll be in touch within 24 hours.</div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">ACADWRITE</div>
+  <p>Professional Academic Writing for Life Sciences & Pharmacy Students</p>
+  <p style="margin-top:16px;">© 2025 ACADWRITE. All rights reserved.</p>
+</footer>
+
+<script>
+  // Form handled by Formspree
+</script>
+
+</body>
+</html>
